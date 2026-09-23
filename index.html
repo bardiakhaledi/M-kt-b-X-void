@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+    <title>مکتب — ردیاب عادت‌ساز حرفه‌ای (مهر ۱۴۰۵)</title>
+
+    <!-- PWA / iOS Standalone Configuration -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#171A18">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="مکتب">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" href="icon-192.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body { 
+            font-family: 'Vazirmatn', sans-serif; 
+            background-color: #F3EFE5; 
+            color: #171A18;
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior-y: none;
+        }
+        /* iPhone Safe Area Handling (Dynamic Island / Home Indicator) */
+        header.app-header {
+            padding-top: max(1rem, env(safe-area-inset-top));
+        }
+        nav.app-nav {
+            padding-bottom: max(10px, env(safe-area-inset-bottom));
+            padding-left: max(1rem, env(safe-area-inset-left));
+            padding-right: max(1rem, env(safe-area-inset-right));
+        }
+        .maktab-card {
+            background-color: #F3EFE5;
+            border: 1px solid #B8B5A9;
+            border-radius: 8px;
+        }
+        .maktab-surface {
+            background-color: #FFFFFF;
+            border: 1px solid #B8B5A9;
+            border-radius: 6px;
+        }
+        .maktab-green {
+            background-color: #244A3A;
+            color: #F3EFE5;
+        }
+        .maktab-green-text {
+            color: #244A3A;
+        }
+        .maktab-amber {
+            color: #C98A32;
+        }
+        select option:disabled {
+            color: #B8B5A9;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-[#244A3A] selection:text-[#F3EFE5]">
+
+    <!-- Top Editorial App Bar -->
+    <header class="app-header bg-[#171A18] text-[#F3EFE5] border-b border-[#B8B5A9]/30 p-4 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-md mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="text-xs bg-[#244A3A] text-[#F3EFE5] px-2.5 py-0.5 rounded font-bold tracking-widest">01 / مکتب</span>
+                <h1 class="text-xs font-bold tracking-wide">مدرسه فکری رفتار و انضباط</h1>
+            </div>
+            <span id="header-date" class="text-xs bg-[#66736B]/30 px-2.5 py-1 rounded text-[#F3EFE5]">...</span>
+        </div>
+    </header>
+
+    <!-- Main App Container -->
+    <main class="max-w-md w-full mx-auto p-4 flex-1 pb-36" id="app-container">
+        <!-- Dynamic Views -->
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="app-nav fixed bottom-0 left-0 right-0 bg-[#171A18] text-[#F3EFE5] border-t border-[#B8B5A9]/30 pt-2.5 px-4 shadow-2xl z-50">
+        <div class="max-w-md mx-auto flex justify-around text-xs font-medium">
+            <button onclick="switchTab('today')" id="nav-today" class="flex flex-col items-center gap-1 text-[#C98A32] font-bold transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                امروز
+            </button>
+            <button onclick="switchTab('water')" id="nav-water" class="flex flex-col items-center gap-1 text-[#B8B5A9] hover:text-[#F3EFE5] transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                آب‌سنج
+            </button>
+            <button onclick="switchTab('history')" id="nav-history" class="flex flex-col items-center gap-1 text-[#B8B5A9] hover:text-[#F3EFE5] transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                تاریخچه
+            </button>
+            <button onclick="switchTab('dashboard')" id="nav-dashboard" class="flex flex-col items-center gap-1 text-[#B8B5A9] hover:text-[#F3EFE5] transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                داشبورد
+            </button>
+            <button onclick="switchTab('stats')" id="nav-stats" class="flex flex-col items-center gap-1 text-[#B8B5A9] hover:text-[#F3EFE5] transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                آمار
+            </button>
+        </div>
+    </nav>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed top-20 left-1/2 transform -translate-x-1/2 bg-[#244A3A] text-[#F3EFE5] border border-[#B8B5A9]/40 px-4 py-2 rounded-lg shadow-xl text-xs transition-all duration-300 opacity-0 pointer-events-none z-50">
+        اطلاعات با موفقیت ثبت شد.
+    </div>
+
+    <script>
+        // Mehr 1405 Dataset (30 Days)
+        const mehrCalendar = [
+            {jalali: "۱ مهر ۱۴۰۵", weekday: "چهارشنبه", gregorian: "2026-09-23"},
+            {jalali: "۲ مهر ۱۴۰۵", weekday: "پنجشنبه", gregorian: "2026-09-24"},
+            {jalali: "۳ مهر ۱۴۰۵", weekday: "جمعه", gregorian: "2026-09-25"},
+            {jalali: "۴ مهر ۱۴۰۵", weekday: "شنبه", gregorian: "2026-09-26"},
+            {jalali: "۵ مهر ۱۴۰۵", weekday: "یکشنبه", gregorian: "2026-09-27"},
+            {jalali: "۶ مهر ۱۴۰۵", weekday: "دوشنبه", gregorian: "2026-09-28"},
+            {jalali: "۷ مهر ۱۴۰۵", weekday: "سه‌شنبه", gregorian: "2026-09-29"},
+            {jalali: "۸ مهر ۱۴۰۵", weekday: "چهارشنبه", gregorian: "2026-09-30"},
+            {jalali: "۹ مهر ۱۴۰۵", weekday: "پنجشنبه", gregorian: "2026-10-01"},
+            {jalali: "۱۰ مهر ۱۴۰۵", weekday: "جمعه", gregorian: "2026-10-02"},
+            {jalali: "۱۱ مهر ۱۴۰۵", weekday: "شنبه", gregorian: "2026-10-03"},
+            {jalali: "۱۲ مهر ۱۴۰۵", weekday: "یکشنبه", gregorian: "2026-10-04"},
+            {jalali: "۱۳ مهر ۱۴۰۵", weekday: "دوشنبه", gregorian: "2026-10-05"},
+            {jalali: "۱۴ مهر ۱۴۰۵", weekday: "سه‌شنبه", gregorian: "2026-10-06"},
+            {jalali: "۱۵ مهر ۱۴۰۵", weekday: "چهارشنبه", gregorian: "2026-10-07"},
+            {jalali: "۱۶ مهر ۱۴۰۵", weekday: "پنجشنبه", gregorian: "2026-10-08"},
+            {jalali: "۱۷ مهر ۱۴۰۵", weekday: "جمعه", gregorian: "2026-10-09"},
+            {jalali: "۱۸ مهر ۱۴۰۵", weekday: "شنبه", gregorian: "2026-10-10"},
+            {jalali: "۱۹ مهر ۱۴۰۵", weekday: "یکشنبه", gregorian: "2026-10-11"},
+            {jalali: "۲۰ مهر ۱۴۰۵", weekday: "دوشنبه", gregorian: "2026-10-12"},
+            {jalali: "۲۱ مهر ۱۴۰۵", weekday: "سه‌شنبه", gregorian: "2026-10-13"},
+            {jalali: "۲۲ مهر ۱۴۰۵", weekday: "چهارشنبه", gregorian: "2026-10-14"},
+            {jalali: "۲۳ مهر ۱۴۰۵", weekday: "پنجشنبه", gregorian: "2026-10-15"},
+            {jalali: "۲۴ مهر ۱۴۰۵", weekday: "جمعه", gregorian: "2026-10-16"},
+            {jalali: "۲۵ مهر ۱۴۰۵", weekday: "شنبه", gregorian: "2026-10-17"},
+            {jalali: "۲۶ مهر ۱۴۰۵", weekday: "یکشنبه", gregorian: "2026-10-18"},
+            {jalali: "۲۷ مهر ۱۴۰۵", weekday: "دوشنبه", gregorian: "2026-10-19"},
+            {jalali: "۲۸ مهر ۱۴۰۵", weekday: "سه‌شنبه", gregorian: "2026-10-20"},
+            {jalali: "۲۹ مهر ۱۴۰۵", weekday: "چهارشنبه", gregorian: "2026-10-21"},
+            {jalali: "۳۰ مهر ۱۴۰۵", weekday: "پنجشنبه", gregorian: "2026-10-22"}
+        ];
+
+        // Chronologically Reorganized Categories (Nicotine completely purged, Maktab brand aligned)
+        const categories = [
+            { 
+                name: "۰۱ — روتین صبح (Morning)", 
+                border: "border-[#244A3A]/40", 
+                headerBg: "bg-[#244A3A]/10 text-[#244A3A]", 
+                habits: ["ماینوکسیدیل صبح", "مرتب کردن تخت", "خواب"] 
+            },
+            { 
+                name: "۰۲ — طول روز و سیستم‌ها (Daytime)", 
+                border: "border-[#66736B]/40", 
+                headerBg: "bg-[#66736B]/10 text-[#171A18]", 
+                habits: ["ورزش", "تغذیه سالم", "آب", "بدون اینستاگرام بعد از بیدار شدن", "مطالعه", "یادگیری زبان", "یادگیری مطلب جدید", "دوری از احمال‌کاری"] 
+            },
+            { 
+                name: "۰۳ — روتین شب (Evening & Night)", 
+                border: "border-[#C98A32]/40", 
+                headerBg: "bg-[#C98A32]/10 text-[#171A18]", 
+                habits: ["مسواک شب", "ماینوکسیدیل شب", "بدون اینستاگرام قبل خواب", "مدیتیشن", "ژورنال‌نویسی", "برنامه‌ریزی روز بعد"] 
+            }
+        ];
+
+        const allHabitsList = categories.flatMap(c => c.habits); // Total 17 habits + water = 18 items (36 points max)
+
+        const waterContainers = [
+            { id: 'c1', name: 'لیوان کوچک (۱۰۰ سی‌سی)', ml: 100 },
+            { id: 'c2', name: 'لیوان متوسط (۱۵۰ سی‌سی)', ml: 150 },
+            { id: 'c3', name: 'لیوان بزرگ (۲۰۰ سی‌سی)', ml: 200 },
+            { id: 'c4', name: 'بطری آب معدنی کوچک (۲۵۰ سی‌سی)', ml: 250 },
+            { id: 'c5', name: 'بطری آب معدنی بزرگ (۱ لیتر)', ml: 1000 }
+        ];
+
+        let currentTab = 'today';
+
+        // Robust Data Migration from any previous local storage keys
+        function migrateHistoryData() {
+            // Only reads Mehr-specific history keys — Shahrivar data (maktab_history_v4, etc.)
+            // is intentionally left untouched so previous month's records are preserved separately.
+            const possibleKeys = ['maktab_history_mehr_v4'];
+            let mergedData = {};
+            for (let key of possibleKeys) {
+                const raw = localStorage.getItem(key);
+                if (raw) {
+                    try {
+                        const parsed = JSON.parse(raw);
+                        if (parsed && typeof parsed === 'object') {
+                            mergedData = {...parsed, ...mergedData};
+                        }
+                    } catch(e) {}
+                }
+            }
+            return mergedData;
+        }
+
+        let historyData = migrateHistoryData();
+        let todayInputs = JSON.parse(localStorage.getItem('maktab_today_mehr_v4')) || {};
+        let todayWaterCounts = JSON.parse(localStorage.getItem('maktab_water_mehr_v4')) || {c1:0, c2:0, c3:0, c4:0, c5:0};
+
+        let activeDayIndex = 0;
+        const todayStr = new Date().toISOString().split('T')[0];
+        const foundDay = mehrCalendar.findIndex(d => d.gregorian === todayStr);
+        if (foundDay !== -1) activeDayIndex = foundDay;
+
+        function saveState() {
+            localStorage.setItem('maktab_history_mehr_v4', JSON.stringify(historyData));
+            localStorage.setItem('maktab_today_mehr_v4', JSON.stringify(todayInputs));
+            localStorage.setItem('maktab_water_mehr_v4', JSON.stringify(todayWaterCounts));
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 2500);
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            ['today', 'water', 'history', 'dashboard', 'stats'].forEach(t => {
+                const btn = document.getElementById(`nav-${t}`);
+                if (t === tab) {
+                    btn.className = "flex flex-col items-center gap-1 text-[#C98A32] font-bold transition";
+                } else {
+                    btn.className = "flex flex-col items-center gap-1 text-[#B8B5A9] hover:text-[#F3EFE5] transition";
+                }
+            });
+            render();
+        }
+
+        function calculateTotalWaterMl() {
+            let totalMl = 0;
+            waterContainers.forEach(c => {
+                totalMl += (todayWaterCounts[c.id] || 0) * c.ml;
+            });
+            return totalMl;
+        }
+
+        function getWaterStatus(totalMl) {
+            const litr = totalMl / 1000;
+            if (litr >= 3.0) return "✅ کامل";
+            if (litr >= 1.5) return "➖ ناقص";
+            return "❌ انجام نشده";
+        }
+
+        function calculateMetrics(inputs, waterMl) {
+            let score = 0;
+            let totalPossible = allHabitsList.length * 2; // 36 points max
+            
+            const waterStatus = getWaterStatus(waterMl);
+            if (waterStatus === '✅ کامل') score += 2;
+            else if (waterStatus === '➖ ناقص') score += 1;
+
+            allHabitsList.forEach(h => {
+                if (h === 'آب') return;
+                const val = inputs[h];
+                if (val === '✅ کامل') score += 2;
+                else if (val === '➖ ناقص') score += 1;
+            });
+
+            const pct = Math.round((score / totalPossible) * 100);
+            let level = "🔴 نیاز به بهبود";
+            let color = "text-red-700 bg-red-100 border-red-300";
+            if (pct >= 90) { level = "🔵 فوق‌العاده"; color = "text-blue-800 bg-blue-100 border-blue-300"; }
+            else if (pct >= 70) { level = "🟢 عالی"; color = "text-[#244A3A] bg-[#244A3A]/10 border-[#244A3A]/30"; }
+            else if (pct >= 40) { level = "🟡 خوب"; color = "text-[#C98A32] bg-[#C98A32]/10 border-[#C98A32]/30"; }
+            return { score, totalPossible, pct, level, color, waterStatus };
+        }
+
+        function renderToday() {
+            const dayInfo = mehrCalendar[activeDayIndex];
+            document.getElementById('header-date').innerText = `${dayInfo.weekday}، ${dayInfo.jalali}`;
+
+            const totalWaterMl = calculateTotalWaterMl();
+            const metrics = calculateMetrics(todayInputs, totalWaterMl);
+
+            let html = `
+                <div class="mb-5 maktab-surface p-4 shadow-sm">
+                    <div class="flex justify-between items-center mb-3">
+                        <div>
+                            <span class="text-[10px] text-[#66736B] block uppercase tracking-wider font-semibold">ارزیابی امروز</span>
+                            <span class="text-sm font-bold text-[#171A18]">${dayInfo.jalali} (${dayInfo.weekday})</span>
+                        </div>
+                        <div class="text-left">
+                            <span class="text-[10px] text-[#66736B] block uppercase tracking-wider font-semibold">امتیاز</span>
+                            <span class="text-base font-bold text-[#244A3A]">${metrics.score} <span class="text-xs text-[#66736B]">/ ${metrics.totalPossible}</span></span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 pt-2 border-t border-[#B8B5A9]/30 text-center">
+                        <div class="bg-[#F3EFE5] p-2 rounded">
+                            <span class="text-[10px] text-[#66736B] block">درصد موفقیت</span>
+                            <span class="text-xs font-bold text-[#171A18]">${metrics.pct}%</span>
+                        </div>
+                        <div class="p-2 rounded border ${metrics.color}">
+                            <span class="text-[10px] opacity-80 block">سطح عملکرد</span>
+                            <span class="text-xs font-bold">${metrics.level}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-5">
+            `;
+
+            categories.forEach((cat) => {
+                html += `
+                    <div class="maktab-card overflow-hidden shadow-sm">
+                        <div class="px-3.5 py-2 font-bold text-xs ${cat.headerBg} border-b border-[#B8B5A9]/30 flex justify-between items-center">
+                            <span>${cat.name}</span>
+                            <span class="text-[10px] opacity-75">${cat.habits.length} عادت</span>
+                        </div>
+                        <div class="divide-y divide-[#B8B5A9]/20 bg-white">
+                `;
+
+                cat.habits.forEach((habit) => {
+                    let note = '';
+                    if (habit === 'خواب') note = 'کامل: ۷-۹ ساعت | ناقص: ۶-۷ یا ۹-۱۰ ساعت';
+                    if (habit === 'دوری از احمال‌کاری') note = 'انجام کارها در موعد مقرر بدون تعویق';
+                    if (habit === 'ژورنال‌نویسی' || habit === 'برنامه‌ریزی روز بعد') note = 'ثبت در دفترچه فیزیکی شخصی';
+
+                    if (habit === 'آب') {
+                        const wStatus = metrics.waterStatus;
+                        const wLitres = (totalWaterMl / 1000).toFixed(2);
+                        html += `
+                            <div class="p-3 flex items-center justify-between gap-2">
+                                <div class="flex-1">
+                                    <span class="text-xs font-semibold text-[#171A18] block">${habit} (محاسبه خودکار)</span>
+                                    <span class="text-[10px] text-[#244A3A] block">مجموع: ${wLitres} لیتر (کامل ≥3L | ناقص 1.5–3L)</span>
+                                </div>
+                                <span class="bg-[#F3EFE5] border border-[#B8B5A9] text-xs font-bold px-2.5 py-1 rounded text-[#244A3A]">
+                                    ${wStatus}
+                                </span>
+                            </div>
+                        `;
+                    } else {
+                        const currentVal = todayInputs[habit] || "";
+                        html += `
+                            <div class="p-3 flex items-center justify-between gap-2">
+                                <div class="flex-1">
+                                    <span class="text-xs font-semibold text-[#171A18] block">${habit}</span>
+                                    ${note ? `<span class="text-[10px] text-[#66736B] block">${note}</span>` : ''}
+                                </div>
+                                <select onchange="updateHabitInput('${habit}', this.value)" 
+                                    class="bg-[#F3EFE5] border border-[#B8B5A9] text-xs font-medium rounded px-2.5 py-1.5 text-[#171A18] focus:outline-none focus:ring-1 focus:ring-[#244A3A]">
+                                    <option value="" disabled ${!currentVal ? 'selected' : ''}>— انتخاب نشده —</option>
+                                    <option value="✅ کامل" ${currentVal === '✅ کامل' ? 'selected' : ''}>✅ کامل</option>
+                                    <option value="➖ ناقص" ${currentVal === '➖ ناقص' ? 'selected' : ''}>➖ ناقص</option>
+                                    <option value="❌ انجام نشده" ${currentVal === '❌ انجام نشده' ? 'selected' : ''}>❌ انجام نشده</option>
+                                </select>
+                            </div>
+                        `;
+                    }
+                });
+
+                html += `</div></div>`;
+            });
+
+            html += `
+                <button onclick="saveAndStartNextDay()" class="w-full mt-5 maktab-green hover:bg-[#1a352a] text-[#F3EFE5] font-bold py-3 px-4 rounded shadow transition text-xs tracking-wide flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    ثبت و ذخیره روز
+                </button>
+            </div>
+            `;
+
+            document.getElementById('app-container').innerHTML = html;
+        }
+
+        function renderWater() {
+            document.getElementById('header-date').innerText = "مدیریت آب‌سنج هوشمند";
+            const totalMl = calculateTotalWaterMl();
+            const totalLiters = (totalMl / 1000).toFixed(2);
+            const status = getWaterStatus(totalMl);
+
+            let html = `
+                <div class="space-y-4">
+                    <div class="maktab-surface p-5 text-center shadow-sm border-l-4 border-[#244A3A]">
+                        <span class="text-[10px] text-[#66736B] uppercase tracking-wider block mb-1">مجموع حجم آب مصرفی امروز</span>
+                        <div class="text-2xl font-bold text-[#171A18] mb-2">${totalLiters} <span class="text-sm font-normal text-[#66736B]">لیتر</span></div>
+                        <div class="inline-block px-3 py-1 rounded text-xs font-bold bg-[#F3EFE5] border border-[#B8B5A9] text-[#244A3A]">
+                            وضعیت در ارزیابی: ${status}
+                        </div>
+                    </div>
+
+                    <div class="space-y-2.5">
+            `;
+
+            waterContainers.forEach(c => {
+                const count = todayWaterCounts[c.id] || 0;
+                html += `
+                    <div class="maktab-surface p-3 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-[#171A18] block">${c.name}</span>
+                            <span class="text-[10px] text-[#66736B]">${count} وعده ثبت شده</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="adjustWater('${c.id}', -1)" class="w-8 h-8 bg-[#F3EFE5] border border-[#B8B5A9] hover:bg-[#B8B5A9]/20 text-[#171A18] rounded font-bold text-base flex items-center justify-center transition">−</button>
+                            <span class="w-6 text-center font-bold text-xs text-[#171A18]">${count}</span>
+                            <button onclick="adjustWater('${c.id}', 1)" class="w-8 h-8 maktab-green hover:bg-[#1a352a] text-[#F3EFE5] rounded font-bold text-base flex items-center justify-center transition">+</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+                </div>
+            `;
+            document.getElementById('app-container').innerHTML = html;
+        }
+
+        function adjustWater(id, delta) {
+            todayWaterCounts[id] = Math.max(0, (todayWaterCounts[id] || 0) + delta);
+            saveState();
+            renderWater();
+        }
+
+        function updateHabitInput(habit, val) {
+            todayInputs[habit] = val;
+            saveState();
+            renderToday();
+        }
+
+        function saveAndStartNextDay() {
+            const dayKey = mehrCalendar[activeDayIndex].jalali;
+            const totalMl = calculateTotalWaterMl();
+            
+            historyData[dayKey] = {
+                habits: {...todayInputs},
+                waterStatus: getWaterStatus(totalMl),
+                waterLiters: (totalMl / 1000).toFixed(2)
+            };
+            
+            saveState();
+            showToast(`✅ روز ${dayKey} با موفقیت ثبت شد.`);
+            
+            if (activeDayIndex < mehrCalendar.length - 1) {
+                activeDayIndex++;
+                todayInputs = {};
+                todayWaterCounts = {c1:0, c2:0, c3:0, c4:0, c5:0};
+                saveState();
+            }
+            renderToday();
+        }
+
+        function renderHistory() {
+            document.getElementById('header-date').innerText = "تاریخچه ۳۰ روزه مهر";
+            let html = `<div class="space-y-2.5">`;
+
+            mehrCalendar.forEach((day, idx) => {
+                const rec = historyData[day.jalali];
+                let score = 0;
+                if (rec) {
+                    if (rec.waterStatus === '✅ کامل') score += 2;
+                    else if (rec.waterStatus === '➖ ناقص') score += 1;
+                    allHabitsList.forEach(h => {
+                        if (h === 'آب') return;
+                        if (rec.habits && rec.habits[h] === '✅ کامل') score += 2;
+                        else if (rec.habits && rec.habits[h] === '➖ ناقص') score += 1;
+                    });
+                }
+                const pct = Math.round((score / 36) * 100);
+                const hasLogged = !!rec;
+
+                html += `
+                    <div class="maktab-surface p-3 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-[#171A18] block">${day.jalali}</span>
+                            <span class="text-[10px] text-[#66736B]">${day.weekday} (${day.gregorian})</span>
+                        </div>
+                        <div class="text-left flex items-center gap-3">
+                            <div>
+                                <span class="text-[10px] text-[#66736B] block">عملکرد</span>
+                                <span class="text-xs font-bold ${hasLogged ? 'text-[#244A3A]' : 'text-[#B8B5A9]'}">${hasLogged ? `${score}/36 (${pct}%)` : 'ثبت نشده'}</span>
+                            </div>
+                            <button onclick="loadDayForEdit(${idx})" class="bg-[#F3EFE5] border border-[#B8B5A9] hover:bg-[#B8B5A9]/20 text-[10px] px-2.5 py-1 rounded font-semibold text-[#171A18]">ویرایش</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            document.getElementById('app-container').innerHTML = html;
+        }
+
+        function loadDayForEdit(idx) {
+            activeDayIndex = idx;
+            const dayKey = mehrCalendar[idx].jalali;
+            if (historyData[dayKey] && historyData[dayKey].habits) {
+                todayInputs = {...historyData[dayKey].habits};
+            } else {
+                todayInputs = {};
+            }
+            switchTab('today');
+            showToast(`بارگذاری ${dayKey} جهت ویرایش`);
+        }
+
+        function renderDashboard() {
+            document.getElementById('header-date').innerText = "داشبورد ارزیابی مکتب";
+
+            let loggedDaysCount = 0;
+            let totalScoreSum = 0;
+            let excellentDays = 0;
+
+            mehrCalendar.forEach(day => {
+                const rec = historyData[day.jalali];
+                if (rec) {
+                    loggedDaysCount++;
+                    let sc = 0;
+                    if (rec.waterStatus === '✅ کامل') sc += 2;
+                    else if (rec.waterStatus === '➖ ناقص') sc += 1;
+                    allHabitsList.forEach(h => {
+                        if (h === 'آب') return;
+                        if (rec.habits && rec.habits[h] === '✅ کامل') sc += 2;
+                        else if (rec.habits && rec.habits[h] === '➖ ناقص') sc += 1;
+                    });
+                    const p = Math.round((sc / 36) * 100);
+                    totalScoreSum += p;
+                    if (p >= 70) excellentDays++;
+                }
+            });
+
+            const avgMonth = loggedDaysCount > 0 ? Math.round(totalScoreSum / loggedDaysCount) : 0;
+
+            let currentStreak = 0;
+            let bestStreak = 0;
+            let tempStreak = 0;
+
+            for (let i = 0; i < mehrCalendar.length; i++) {
+                const day = mehrCalendar[i];
+                const rec = historyData[day.jalali];
+                let sc = 0;
+                if (rec) {
+                    if (rec.waterStatus === '✅ کامل') sc += 2;
+                    else if (rec.waterStatus === '➖ ناقص') sc += 1;
+                    allHabitsList.forEach(h => {
+                        if (h === 'آب') return;
+                        if (rec.habits && rec.habits[h] === '✅ کامل') sc += 2;
+                        else if (rec.habits && rec.habits[h] === '➖ ناقص') sc += 1;
+                    });
+                }
+                const p = rec ? Math.round((sc / 36) * 100) : 0;
+                if (p >= 70) {
+                    tempStreak++;
+                    if (tempStreak > bestStreak) bestStreak = tempStreak;
+                    currentStreak = tempStreak;
+                } else {
+                    tempStreak = 0;
+                    currentStreak = 0;
+                }
+            }
+
+            let html = `
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <div class="maktab-surface p-3.5 shadow-sm">
+                            <span class="text-[10px] text-[#66736B] block mb-1">میانگین ماهانه</span>
+                            <span class="text-xl font-bold text-[#244A3A]">${avgMonth}%</span>
+                        </div>
+                        <div class="maktab-surface p-3.5 shadow-sm">
+                            <span class="text-[10px] text-[#66736B] block mb-1">روزهای عالی (۷۰٪+)</span>
+                            <span class="text-xl font-bold text-[#171A18]">${excellentDays} <span class="text-xs text-[#66736B]">روز</span></span>
+                        </div>
+                        <div class="maktab-surface p-3.5 shadow-sm">
+                            <span class="text-[10px] text-[#66736B] block mb-1">Streak فعلی</span>
+                            <span class="text-xl font-bold text-[#C98A32]">${currentStreak} <span class="text-xs text-[#66736B]">روز</span></span>
+                        </div>
+                        <div class="maktab-surface p-3.5 shadow-sm">
+                            <span class="text-[10px] text-[#66736B] block mb-1">بهترین Streak</span>
+                            <span class="text-xl font-bold text-[#244A3A]">${bestStreak} <span class="text-xs text-[#66736B]">روز</span></span>
+                        </div>
+                    </div>
+
+                    <div class="maktab-surface p-4 shadow-sm">
+                        <h3 class="text-xs font-bold text-[#171A18] mb-3 border-b border-[#B8B5A9]/30 pb-2">تقویم حرارتی مهر ۱۴۰۵</h3>
+                        <div class="grid grid-cols-7 gap-1 text-center text-[10px]">
+                            <span class="text-[#66736B] font-bold">ش</span>
+                            <span class="text-[#66736B] font-bold">ی</span>
+                            <span class="text-[#66736B] font-bold">د</span>
+                            <span class="text-[#66736B] font-bold">س</span>
+                            <span class="text-[#66736B] font-bold">چ</span>
+                            <span class="text-[#66736B] font-bold">پ</span>
+                            <span class="text-[#66736B] font-bold">ج</span>
+            `;
+
+            // Mehr 1st, 1405 falls on Wednesday (چ) — columns are ش ی د س چ پ ج (Sat=0..Fri=6), so 4 empty offset cells
+            for (let i = 0; i < 4; i++) {
+                html += `<div class="h-9 bg-[#F3EFE5]/50 rounded"></div>`;
+            }
+
+            mehrCalendar.forEach((day, idx) => {
+                const rec = historyData[day.jalali];
+                let sc = 0;
+                if (rec) {
+                    if (rec.waterStatus === '✅ کامل') sc += 2;
+                    else if (rec.waterStatus === '➖ ناقص') sc += 1;
+                    allHabitsList.forEach(h => {
+                        if (h === 'آب') return;
+                        if (rec.habits && rec.habits[h] === '✅ کامل') sc += 2;
+                        else if (rec.habits && rec.habits[h] === '➖ ناقص') sc += 1;
+                    });
+                }
+                const p = rec ? Math.round((sc / 36) * 100) : -1;
+                let bgClass = "bg-[#F3EFE5] text-[#66736B] border border-[#B8B5A9]/40";
+                if (p >= 90) bgClass = "bg-[#171A18] text-[#F3EFE5] font-bold";
+                else if (p >= 70) bgClass = "bg-[#244A3A] text-[#F3EFE5] font-bold";
+                else if (p >= 40) bgClass = "bg-[#C98A32] text-[#F3EFE5] font-bold";
+                else if (p >= 0 && rec) bgClass = "bg-red-800 text-white font-bold";
+
+                html += `
+                    <div class="h-9 rounded flex flex-col items-center justify-center ${bgClass} text-xs cursor-pointer" onclick="loadDayForEdit(${idx})" title="${day.jalali}">
+                        <span>${idx + 1}</span>
+                    </div>
+                `;
+            });
+
+            html += `
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('app-container').innerHTML = html;
+        }
+
+        function renderStats() {
+            document.getElementById('header-date').innerText = "تحلیل آماری عادت‌ها";
+
+            const habitStats = allHabitsList.map(habit => {
+                let totalPossibleDays = 0;
+                let earnedPoints = 0;
+                mehrCalendar.forEach(day => {
+                    const rec = historyData[day.jalali];
+                    if (rec) {
+                        totalPossibleDays += 2;
+                        if (habit === 'آب') {
+                            if (rec.waterStatus === '✅ کامل') earnedPoints += 2;
+                            else if (rec.waterStatus === '➖ ناقص') earnedPoints += 1;
+                        } else {
+                            if (rec.habits && rec.habits[habit] === '✅ کامل') earnedPoints += 2;
+                            else if (rec.habits && rec.habits[habit] === '➖ ناقص') earnedPoints += 1;
+                        }
+                    }
+                });
+                const rate = totalPossibleDays > 0 ? Math.round((earnedPoints / totalPossibleDays) * 100) : 0;
+                return { habit, rate };
+            });
+
+            habitStats.sort((a, b) => a.rate - b.rate);
+
+            // Fixed Running Streaks Calculation for Statistics Trend Chart
+            let runningStreaks = [];
+            let currentS = 0;
+            mehrCalendar.forEach(day => {
+                const rec = historyData[day.jalali];
+                let sc = 0;
+                if (rec) {
+                    if (rec.waterStatus === '✅ کامل') sc += 2;
+                    else if (rec.waterStatus === '➖ ناقص') sc += 1;
+                    allHabitsList.forEach(h => {
+                        if (h === 'آب') return;
+                        if (rec.habits && rec.habits[h] === '✅ کامل') sc += 2;
+                        else if (rec.habits && rec.habits[h] === '➖ ناقص') sc += 1;
+                    });
+                }
+                const p = rec ? Math.round((sc / 36) * 100) : 0;
+                if (p >= 70) {
+                    currentS++;
+                } else {
+                    currentS = 0;
+                }
+                runningStreaks.push({ day: day.jalali.split(' ')[0], streak: currentS });
+            });
+
+            let html = `
+                <div class="space-y-4">
+                    <div class="maktab-surface p-4 shadow-sm">
+                        <h3 class="text-xs font-bold text-[#171A18] mb-3 border-b border-[#B8B5A9]/30 pb-2">روند نوسان Streak ماهانه</h3>
+                        <div class="h-28 flex items-end gap-1 pt-3 border-b border-[#B8B5A9]/30 pb-1">
+            `;
+
+            const maxStreakVal = Math.max(5, ...runningStreaks.map(s => s.streak));
+            runningStreaks.forEach((item, index) => {
+                const heightPct = Math.max(10, Math.round((item.streak / maxStreakVal) * 100));
+                html += `
+                    <div class="flex-1 flex flex-col items-center gap-1 group relative">
+                        <div class="w-full bg-[#C98A32] rounded-t transition-all" style="height: ${heightPct}%" title="${item.day}: ${item.streak} روز Streak"></div>
+                        <span class="text-[8px] text-[#66736B] transform -rotate-45 origin-top-left">${index % 3 === 0 ? item.day : ''}</span>
+                    </div>
+                `;
+            });
+
+            html += `
+                        </div>
+                    </div>
+
+                    <div class="maktab-surface p-4 shadow-sm">
+                        <h3 class="text-xs font-bold text-[#171A18] mb-3 border-b border-[#B8B5A9]/30 pb-2">عملکرد عادات (از آسیب‌پذیرترین)</h3>
+                        <div class="space-y-2.5">
+            `;
+
+            habitStats.forEach(stat => {
+                let barColor = "bg-[#244A3A]";
+                if (stat.rate < 40) barColor = "bg-red-800";
+                else if (stat.rate < 70) barColor = "bg-[#C98A32]";
+
+                html += `
+                    <div>
+                        <div class="flex justify-between text-[11px] mb-1">
+                            <span class="text-[#171A18] font-semibold">${stat.habit}</span>
+                            <span class="text-[#66736B] font-bold">${stat.rate}%</span>
+                        </div>
+                        <div class="w-full bg-[#F3EFE5] border border-[#B8B5A9]/40 h-1.5 rounded overflow-hidden">
+                            <div class="${barColor} h-full rounded-full transition-all duration-500" style="width: ${stat.rate}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('app-container').innerHTML = html;
+        }
+
+        function render() {
+            if (currentTab === 'today') renderToday();
+            else if (currentTab === 'water') renderWater();
+            else if (currentTab === 'history') renderHistory();
+            else if (currentTab === 'dashboard') renderDashboard();
+            else if (currentTab === 'stats') renderStats();
+        }
+
+        render();
+
+        // Register Service Worker for PWA / offline standalone support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch(err => {
+                    console.warn('SW registration failed:', err);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
